@@ -24,17 +24,12 @@ class Counter extends Component {
 
 Counter.propTypes = {
   incValue: PropTypes.func,
-  subValue: PropTypes.func
+  subValue: PropTypes.func,
+  value: PropTypes.number
 }
 
 const mapStateToProps = (state) => ({
   value: state.counter.value
-})
-
-// How to implement it?
-const mapDispatchToProps = (dispatch) => ({
-  incCounter,
-  subCounter
 })
 
 export default connect(mapStateToProps, {incCounter, subCounter})(Counter);
