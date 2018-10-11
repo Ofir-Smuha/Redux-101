@@ -7,12 +7,10 @@ const initialState = {
 const valueReducer = (state = initialState, action) => {
   switch (action.type) {
     case INC_COUNTER:
-    console.log('inc')
       return {
         value: state.value +1
       };
     case SUB_COUNTER:
-    console.log('sub')
       return {
         value: state.value -1
       };

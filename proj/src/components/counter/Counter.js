@@ -11,9 +11,6 @@ const Button = styled.button`
 `
 
 class Counter extends Component {
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
-  }
   render() {
     return (
       <div>

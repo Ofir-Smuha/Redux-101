@@ -4,7 +4,7 @@ import {INC_COUNTER, SUB_COUNTER} from 'actions/types'
 export const incCounter = () => {
   return dispatch => dispatch({
       type: INC_COUNTER,
-    })
+  })
 }
 
 // Dispatch subtract value
