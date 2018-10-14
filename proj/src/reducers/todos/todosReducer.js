@@ -1,4 +1,5 @@
-import {ADD_TODO,DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT} from 'actions/types';
+import { handleActions, combineActions} from 'redux-actions';
+import {ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT} from 'actions/types';
 import todo from './todoReducer'
 
 const initialState = {
@@ -12,40 +13,31 @@ const initialState = {
   ]
 };
 
-const todosReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        todos: [...state.todos, todo(undefined, action)],
-        openEdit: false,
-      };
-    case EDIT_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(t => todo(t, action)),
-        openEdit: false,
-        currTodo: null,
-      };
-    case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter(todo => todo.id !== action.id)
-      }
-    case OPEN_EDIT: 
-      return {
-        ...state,
-        openEdit: true,
-        currTodo: action.todo
-      }
-    case CLOSE_EDIT: 
+export default handleActions({
+  [combineActions(ADD_TODO, EDIT_TODO, CLOSE_EDIT)]:( state, payload) => {
     return {
       ...state,
       openEdit: false,
     }
-    default: 
-      return state
-  }
-};
-
-export default todosReducer;
+  },
+  ADD_TODO: (state, action) => ({
+    ...state,
+    todos: [...state.todos, todo(undefined, action)],
+  }),
+  EDIT_TODO: (state, action) => ({
+    ...state,
+    todos: state.todos.map(t => todo(t, action)),
+    currTodo: null,
+  }),
+  DELETE_TODO: (state, action) => ({
+    ...state,
+    todos: state.todos.filter(todo => todo.id !== action.id) 
+  }),
+  OPEN_EDIT: (state, action) => ({
+    ...state,
+    openEdit: true,
+    currTodo: action.todo
+  }),
+  CLOSE_EDIT: (state, action) => ({
+    ...state,
+  })}, initialState )

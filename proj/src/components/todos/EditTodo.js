@@ -11,6 +11,7 @@ class EditTodo extends Component {
 
   // Conditional rendering
   renderInput = () => {
+
     if (this.props.currTodo) {
       return <input type="text" defaultValue={this.props.currTodo.text} onChange={this.updateValue}/>
     }

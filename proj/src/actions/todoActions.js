@@ -26,7 +26,6 @@ export const editTodo = (todo) => {
 
 // Dispatch open edit
 export const openEdit = (todo) => {
-  console.log(todo)
   return (dispatch) => dispatch({
     type: OPEN_EDIT,
     todo: todo
