@@ -1,8 +1,9 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT } from 'actions/types';
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT,
+         CLOSE_EDIT, SET_FILTER} from 'actions/types';
 
 // Dispatch add todo
 export const addTodo = (todo) => {
-  return (dispatch) => dispatch({
+  return ({
     type: ADD_TODO,
     todo: todo
   })
@@ -10,31 +11,40 @@ export const addTodo = (todo) => {
 
 // Dispatch delete todo
 export const deleteTodo = (todoId) => {
-  return (dispatch) => dispatch({
+  return{
     type: DELETE_TODO,
     id: todoId
-  })
+  }
 }
 
 // Dispatch edit todo
 export const editTodo = (todo) => {
-  return (dispatch) => dispatch({
+  return {
     type: EDIT_TODO,
     todo: todo
-  })
+  }
 }
 
 // Dispatch open edit
 export const openEdit = (todo) => {
-  return (dispatch) => dispatch({
+  return {
     type: OPEN_EDIT,
     todo: todo
-  })
+  }
 }
 
 // Dispatch close edit
 export const closeEdit = () => {
-  return (dispatch) => dispatch({
+  return {
     type: CLOSE_EDIT,
-  })
+  }
 }
+
+// Dispatch filter
+export const filterTodos = (filter) => {
+  return {
+    type: SET_FILTER,
+    filter
+  }
+}
+

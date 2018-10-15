@@ -1,15 +1,17 @@
 import { handleActions, combineActions} from 'redux-actions';
 import {ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT} from 'actions/types';
+import { set } from 'lodash/fp';
 import todo from './todoReducer'
 
 const initialState = {
   openEdit: false,
   currTodo: null,
   todos: [
-    {id: 12312312, text: 'homework' ,completed: false},
+    {id: 12312312, text: 'homework' ,completed: true},
     {id: 231312, text: 'bath' ,completed: false},
-    {id: 164312, text: 'cleaning' ,completed: false},
-    {id: 7574457, text: 'washing' ,completed: false}
+    {id: 164312, text: 'cleaning' ,completed: true},
+    {id: 7574457, text: 'washing' ,completed: false},
+    {id: 23411, text: 'sleeping' ,completed: false}
   ]
 };
 
@@ -20,12 +22,12 @@ export default handleActions({
       openEdit: false,
     }
   },
-  ADD_TODO: (state, action) => ({
-    ...state,
-    todos: [...state.todos, todo(undefined, action)],
-  }),
+  ADD_TODO: (state, action) => 
+    set('todos', [...state.todos, todo(undefined, action)], state)
+  ,
   EDIT_TODO: (state, action) => ({
     ...state,
+    // todos: state.todos.map(t => todo(t, action)),
     todos: state.todos.map(t => todo(t, action)),
     currTodo: null,
   }),
