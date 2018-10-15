@@ -27,7 +27,6 @@ export default handleActions({
   ,
   EDIT_TODO: (state, action) => ({
     ...state,
-    // todos: state.todos.map(t => todo(t, action)),
     todos: state.todos.map(t => todo(t, action)),
     currTodo: null,
   }),

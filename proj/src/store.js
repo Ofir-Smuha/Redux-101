@@ -1,14 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from 'reducers/rootReducer'
-import logger from 'redux-logger'
 
-const middleWare = [logger]
+const customMiddleWare = store => next => action => {
+  console.log("action:", action);
+  next(action);
+}
 
 const store = createStore(
   rootReducer,
   {},
   compose(
-    applyMiddleware(...middleWare),
+    applyMiddleware(customMiddleWare),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 )
