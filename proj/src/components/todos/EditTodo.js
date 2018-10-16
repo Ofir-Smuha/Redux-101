@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { closeEdit, addTodo, editTodo } from "actions/todoActions";
+import { get } from 'lodash/fp';
 import uuid from 'uuid/v4'
+
+import { closeEdit, addTodo, editTodo } from 'actions/todoActions';
 
 class EditTodo extends Component {
 
   state = {
-    text: ''
+    text: get('currTodo.text', this.props)
   }
 
-  // Conditional rendering
-  renderInput = () => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.currTodo !== this.props.currTodo) {
+      if(this.props.currTodo) {
+        this.setState({
+          text: this.props.currTodo.text
+        });
+      }
+    }
+  }
 
+  renderInput = () => {
     if (this.props.currTodo) {
-      return <input type="text" defaultValue={this.props.currTodo.text} onChange={this.updateValue}/>
+      return <input type="text" value={this.state.text} onChange={this.updateValue}/>
     }
     return <input type="text" onChange={this.updateValue}/>
   }
 
-  // Conditional rendering
   renderSubmit = () => {
     if (this.props.currTodo) {
       return <button onClick={this.onEditTodo}>Submit</button>
@@ -45,9 +54,7 @@ class EditTodo extends Component {
       text: this.state.text
     }
     this.props.addTodo(newTodo)
-    this.setState({
-      text: ''
-    })
+    
   }
 
   render() {

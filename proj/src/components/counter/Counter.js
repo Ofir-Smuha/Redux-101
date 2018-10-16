@@ -10,17 +10,15 @@ const Value = styled.h2`
 const Button = styled.button`
 `
 
-class Counter extends Component {
-  render() {
+const Counter = (props) => {
     return (
       <div>
-        <Value>{this.props.value}</Value>
-        <Button onClick={this.props.incCounter}>+</Button>
-        <Button onClick={this.props.subCounter}>-</Button>
+        <Value>{props.value}</Value>
+        <Button onClick={props.incCounter}>+</Button>
+        <Button onClick={props.subCounter}>-</Button>
       </div>
     )
   }
-}
 
 Counter.propTypes = {
   incValue: PropTypes.func,

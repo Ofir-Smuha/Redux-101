@@ -1,50 +1,31 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT,
-         CLOSE_EDIT, SET_FILTER} from 'actions/types';
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT, SET_FILTER} from 'actions/types';
 
-// Dispatch add todo
-export const addTodo = (todo) => {
-  return ({
+export const addTodo = (todo) => ({
     type: ADD_TODO,
     todo: todo
   })
-}
 
-// Dispatch delete todo
-export const deleteTodo = (todoId) => {
-  return{
+export const deleteTodo = (todoId) => ({
     type: DELETE_TODO,
     id: todoId
-  }
-}
+  })
 
-// Dispatch edit todo
-export const editTodo = (todo) => {
-  return {
+export const editTodo = (todo) => ({
     type: EDIT_TODO,
     todo: todo
-  }
-}
+  })
 
-// Dispatch open edit
-export const openEdit = (todo) => {
-  return {
+export const openEdit = (todo) => ({
     type: OPEN_EDIT,
     todo: todo
-  }
-}
+  })
 
-// Dispatch close edit
-export const closeEdit = () => {
-  return {
+export const closeEdit = () => ({
     type: CLOSE_EDIT,
-  }
-}
+  })
 
-// Dispatch filter
-export const filterTodos = (filter) => {
-  return {
+export const filterTodos = (filter) => ({
     type: SET_FILTER,
     filter
-  }
-}
+  })
 

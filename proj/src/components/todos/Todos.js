@@ -15,7 +15,7 @@ class Todos extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.props.openEdit(null)}>ADD</button>
+        <button onClick={() => this.props.openEdit()}>ADD</button>
         <select onChange={this.handleFilterTodos}>
           <option value="All">All</option>
           <option value="Completed">Completed</option>

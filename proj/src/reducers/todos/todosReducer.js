@@ -1,6 +1,6 @@
 import { handleActions, combineActions} from 'redux-actions';
 import {ADD_TODO, DELETE_TODO, EDIT_TODO, OPEN_EDIT, CLOSE_EDIT} from 'actions/types';
-import { set } from 'lodash/fp';
+import { set, flow } from 'lodash/fp';
 import todo from './todoReducer'
 
 const initialState = {
@@ -16,29 +16,24 @@ const initialState = {
 };
 
 export default handleActions({
-  [combineActions(ADD_TODO, EDIT_TODO, CLOSE_EDIT)]:( state, payload) => {
-    return {
-      ...state,
-      openEdit: false,
-    }
-  },
+  [combineActions(ADD_TODO, EDIT_TODO, CLOSE_EDIT)]:( state, payload) => 
+    set('openEdit', false, state)
+  ,
   ADD_TODO: (state, action) => 
     set('todos', [...state.todos, todo(undefined, action)], state)
   ,
-  EDIT_TODO: (state, action) => ({
-    ...state,
-    todos: state.todos.map(t => todo(t, action)),
-    currTodo: null,
-  }),
-  DELETE_TODO: (state, action) => ({
-    ...state,
-    todos: state.todos.filter(todo => todo.id !== action.id) 
-  }),
-  OPEN_EDIT: (state, action) => ({
-    ...state,
-    openEdit: true,
-    currTodo: action.todo
-  }),
-  CLOSE_EDIT: (state, action) => ({
-    ...state,
-  })}, initialState )
+  EDIT_TODO: (state, action) =>
+    flow([
+      set('todos', state.todos.map(todoItem => todo(todoItem, action))),
+      set('currTodo', null)
+    ])(state)
+  ,
+  DELETE_TODO: (state, action) => 
+    set('todos', state.todos.filter(todo => todo.id !== action.id), state)
+  ,
+  OPEN_EDIT: (state, action) => 
+    flow([
+      set('openEdit', true),
+      set('currTodo', action.todo)
+    ])(state)
+}, initialState )
